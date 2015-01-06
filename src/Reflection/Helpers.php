@@ -23,9 +23,11 @@ class Helpers
 	 */
 	public static function getDeclaringClass(\ReflectionProperty $prop)
 	{
-		foreach ($prop->getDeclaringClass()->getTraits() as $trait) {
-			if ($trait->hasProperty($prop->getName())) {
-				return self::getDeclaringClass($trait->getProperty($prop->getName()));
+		if (method_exists('ReflectionClass', 'getTraits')) {
+			foreach ($prop->getDeclaringClass()->getTraits() as $trait) {
+				if ($trait->hasProperty($prop->getName())) {
+					return self::getDeclaringClass($trait->getProperty($prop->getName()));
+				}
 			}
 		}
 		return $prop->getDeclaringClass();
