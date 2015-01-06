@@ -25,8 +25,9 @@ class Helpers
 	{
 		if (method_exists('ReflectionClass', 'getTraits')) {
 			foreach ($prop->getDeclaringClass()->getTraits() as $trait) {
-				if ($trait->hasProperty($property->getName())) {
-					return self::getDeclaringClass($trait->getProperty($property->getName()));
+				$name = $property->getName();
+				if ($trait->hasProperty($name)) {
+					return self::getDeclaringClass($trait->getProperty($name));
 				}
 			}
 		}
